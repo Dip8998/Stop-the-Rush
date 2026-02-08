@@ -47,5 +47,8 @@ TagManager:
   - name: WalkingPath
     uniqueID: 3429524667
     locked: 0
+  - name: Enemy
+    uniqueID: 944870101
+    locked: 0
   m_RenderingLayers:
   - Default
