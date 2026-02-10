@@ -53,5 +53,8 @@ TagManager:
   - name: TowerPlacing
     uniqueID: 1248950467
     locked: 0
+  - name: GunTower
+    uniqueID: 2029311003
+    locked: 0
   m_RenderingLayers:
   - Default

@@ -12,7 +12,6 @@ namespace STR.Wave
         [SerializeField] private List<Transform> waypoints;
 
         private List<EnemyController> spawnedEnemies = new List<EnemyController>();
-        private EnemyController enemyController;
         private float spawnTimer;
 
         private void Update()
@@ -49,8 +48,8 @@ namespace STR.Wave
 
         private void SpawnedEnemy()
         {
-            enemyController = new EnemyController(enemy, enemySpawnPoint, waypoints);
-            spawnedEnemies.Add(enemyController);
+            EnemyController newEnemy = new EnemyController(enemy, enemySpawnPoint, waypoints);
+            spawnedEnemies.Add(newEnemy);
         }
     }
 }

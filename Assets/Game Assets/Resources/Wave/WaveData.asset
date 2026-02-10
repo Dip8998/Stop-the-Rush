@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8638eff31292caa4cbe6ec62eb4ea9aa, type: 3}
   m_Name: WaveData
   m_EditorClassIdentifier: 
-  EnemyCount: 100
+  EnemyCount: 10
   SpawnInterval: 1
