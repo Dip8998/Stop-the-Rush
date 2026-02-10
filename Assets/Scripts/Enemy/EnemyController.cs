@@ -29,11 +29,14 @@ namespace STR.Enemy
 
         public void Tick()
         {
+            if (enemyView == null) return;
+
             if (Vector2.Distance(target.position, enemyView.transform.position) <= 0.1f)
             {
                 currentWaypointIndex++;
                 if (currentWaypointIndex == waypoints.Count)
                 {
+                    // Enemy reached the end of the path, you can handle it here (e.g., reduce player health)
                     Object.Destroy(enemyView.gameObject);
                     return;
                 }
@@ -46,9 +49,24 @@ namespace STR.Enemy
 
         public void FixedTick()
         {
+            if (enemyView == null) return;
+
             Vector2 direction = (target.position - enemyView.transform.position).normalized;
 
-            rb.linearVelocity = direction * enemyScriptableObject.moveSpeed; 
+            rb.linearVelocity = direction * enemyScriptableObject.moveSpeed;
+            
+            RotateTowardDirection(direction);
+        }
+
+        private void RotateTowardDirection(Vector2 direction)
+        {
+            if(direction.magnitude > 0.01f)
+            {
+                float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
+
+                Quaternion angleRotation = Quaternion.AngleAxis(angle, Vector3.forward);
+                enemyView.transform.rotation = Quaternion.Slerp(enemyView.transform.rotation, angleRotation, Time.fixedDeltaTime * enemyScriptableObject.rotationSpeed);
+            }
         }
     }
 }

@@ -10,15 +10,5 @@ namespace STR.Enemy
         {
             this.controller = controller;
         }
-
-        private void Update()
-        {
-            controller?.Tick();
-        }
-
-        private void FixedUpdate()
-        {
-            controller?.FixedTick();
-        }
     }
 }

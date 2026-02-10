@@ -8,5 +8,6 @@ namespace STR.Enemy
 		public EnemyView enemyPrefab;
         public EnemyType enemyType;
 		public float moveSpeed;
+		public float rotationSpeed;	
     }
 }

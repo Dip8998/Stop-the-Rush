@@ -9,10 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5b1a580efd3beb46979fba7a75b2157, type: 3}
-  m_Name: NormalEnemyData
+  m_Script: {fileID: 11500000, guid: 8638eff31292caa4cbe6ec62eb4ea9aa, type: 3}
+  m_Name: WaveData
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 1125167426986975108, guid: 7a4fd177aabe24f44a801766b9e414eb, type: 3}
-  enemyType: 0
-  moveSpeed: 3
-  rotationSpeed: 10
+  EnemyCount: 100
+  SpawnInterval: 1

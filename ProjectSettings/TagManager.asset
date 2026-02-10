@@ -50,5 +50,8 @@ TagManager:
   - name: Enemy
     uniqueID: 944870101
     locked: 0
+  - name: TowerPlacing
+    uniqueID: 1248950467
+    locked: 0
   m_RenderingLayers:
   - Default
