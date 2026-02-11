@@ -14,3 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerType: 2
   towerPrefab: {fileID: 6022399883514161035, guid: 93328010885847b40a3e152844eb558c, type: 3}
+  attackRange: 2
+  towerRotationSpeed: 10
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 64

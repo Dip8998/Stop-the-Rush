@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4064974548165280225}
   - component: {fileID: 254982639079619369}
+  - component: {fileID: 6697857370759077937}
   m_Layer: 0
   m_Name: MachineGun
   m_TagString: Untagged
@@ -87,3 +88,16 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &6697857370759077937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4645441620039258434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4552fb7a5e158e2478e66c3a97a1b7b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  towerData: {fileID: 11400000, guid: ec684f179650a204193f976b8d78cfdd, type: 2}

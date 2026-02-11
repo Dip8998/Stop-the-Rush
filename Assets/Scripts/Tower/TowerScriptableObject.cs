@@ -7,5 +7,8 @@ namespace STR.Tower
     {
         public TowerType towerType;
         public GameObject towerPrefab;
+        public float attackRange;
+        public float towerRotationSpeed;
+        public LayerMask enemyLayer;
     }
 }
