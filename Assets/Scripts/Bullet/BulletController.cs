@@ -8,14 +8,29 @@ namespace STR.Bullet
         [SerializeField] private float speed = 10f;
 
         private Rigidbody2D bulletRigidBody;
+        private Vector2 moveDirection = Vector2.up;
         private void Awake()
         {
             bulletRigidBody = GetComponent<Rigidbody2D>();
         }
 
-        private void Update()
+        public void Initialize(Vector2 direction)
         {
-            bulletRigidBody.linearVelocity = transform.up * speed;
+            if (direction.sqrMagnitude > 0f)
+            {
+                moveDirection = direction.normalized;
+                transform.up = moveDirection;
+            }
+        }
+
+        private void FixedUpdate()
+        {
+            if (bulletRigidBody == null)
+            {
+                return;
+            }
+
+            bulletRigidBody.linearVelocity = moveDirection * speed;
         }
 
         private void OnTriggerEnter2D(Collider2D collision)

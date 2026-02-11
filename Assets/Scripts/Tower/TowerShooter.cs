@@ -42,6 +42,16 @@ namespace STR.Tower
         private void ShootBulletProjectile()
         {
             GameObject projectileInstance = Instantiate(towerController.TowerData.bulletPrefab.gameObject, firePoint.position, transform.rotation);
+            BulletController bulletController = projectileInstance.GetComponent<BulletController>();
+
+            if (bulletController != null)
+            {
+                Transform target = towerController.Target;
+                Vector2 direction = target != null
+                    ? (target.position - firePoint.position).normalized
+                    : (Vector2)firePoint.up;
+                bulletController.Initialize(direction);
+            }
             Destroy(projectileInstance, 2f);
         }
 
