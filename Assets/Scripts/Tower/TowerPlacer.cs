@@ -8,6 +8,13 @@ namespace STR.Tower
 	{
 		[SerializeField] private Tilemap towerPlacingTileMap;
 
+        private Camera mainCamera;
+
+        private void Awake()
+        {
+            mainCamera = Camera.main;
+        }
+
         private void Update()
         {
             PlaceTowerOnTileMap();
@@ -15,36 +22,37 @@ namespace STR.Tower
 
         private void PlaceTowerOnTileMap()
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) && mainCamera != null && towerPlacingTileMap != null)
             {
-                Vector3 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                Vector3 worldPosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
                 Vector3Int cellPosition = towerPlacingTileMap.WorldToCell(worldPosition);
 
-                TowerScriptableObject selectedTower = TowerManager.Instance.GetSelectedTower();
-                bool isTowerSelected = selectedTower != null;
+                if (TowerManager.Instance == null)
+                {
+                    return;
+                }
+
+                TowerScriptableObject selectedTower = TowerManager.Instance.SelectedTower;
+                bool isTowerSelected = TowerManager.Instance.HasSelectedTower;
 
                 bool isValidTile = towerPlacingTileMap.GetTile(cellPosition) != null;
 
                 if (isTowerSelected && isValidTile)
                 {
-                    PlaceTower(cellPosition);
+                    PlaceTower(cellPosition, selectedTower);
                     TowerManager.Instance.DeselectTower();
                 }
             }
         }
 
-        private void PlaceTower(Vector3Int cellPosition)
+        private void PlaceTower(Vector3Int cellPosition, TowerScriptableObject selectedTower)
 		{
             Tile tileForPlacement = towerPlacingTileMap.GetTile(cellPosition) as Tile;
 
-            if(tileForPlacement != null)
+            if(tileForPlacement != null && selectedTower != null && selectedTower.towerPrefab != null)
             {
-                TowerScriptableObject selectedTower = TowerManager.Instance.GetSelectedTower();
-
-                if (selectedTower == null) return;
-                
                 Vector3 worldPosition = towerPlacingTileMap.CellToWorld(cellPosition) + towerPlacingTileMap.tileAnchor;
-                Instantiate(selectedTower.towerPrefab, worldPosition, Quaternion.identity);
+                Instantiate(selectedTower.towerPrefab.gameObject, worldPosition, Quaternion.identity);
             }
         }
     }

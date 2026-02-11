@@ -6,7 +6,7 @@ namespace STR.Tower
     public class TowerScriptableObject : ScriptableObject
     {
         public TowerType towerType;
-        public GameObject towerPrefab;
+        public TowerController towerPrefab;
         public float attackRange;
         public float towerRotationSpeed;
         public LayerMask enemyLayer;

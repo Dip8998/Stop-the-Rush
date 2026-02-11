@@ -1,5 +1,4 @@
-﻿using UnityEditor;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace STR.Tower
 {
@@ -11,7 +10,9 @@ namespace STR.Tower
 
         private void Update()
         {
-            if(target == null)
+            if (towerData == null) return;
+
+            if (target == null)
             {
                 FindTarget();
                 return;
@@ -53,8 +54,12 @@ namespace STR.Tower
 
         private void OnDrawGizmos()
         {
-            Handles.color = Color.red;
-            Handles.DrawWireDisc(transform.position, Vector3.forward, towerData.attackRange);
+            if (towerData == null) return;
+
+#if UNITY_EDITOR
+            UnityEditor.Handles.color = Color.red;
+            UnityEditor.Handles.DrawWireDisc(transform.position, Vector3.forward, towerData.attackRange);
+#endif
         }
     }
 }

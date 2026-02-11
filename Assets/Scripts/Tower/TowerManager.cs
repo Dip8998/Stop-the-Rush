@@ -6,8 +6,10 @@ namespace STR.Tower
     {
         public static TowerManager Instance { get; private set; }
 
-        [HideInInspector] public TowerScriptableObject selectedTower = null;
-        [HideInInspector] public bool isTowerSelectedForPlacement = false;
+        [SerializeField] private TowerScriptableObject selectedTower;
+
+        public TowerScriptableObject SelectedTower => selectedTower;
+        public bool HasSelectedTower => selectedTower != null;
 
         private void Awake()
         {
@@ -21,19 +23,14 @@ namespace STR.Tower
 
         public void SelectTower(TowerScriptableObject tower)
         {
+            if (tower == null) return;
+
             selectedTower = tower;
-            isTowerSelectedForPlacement = true;
         }
 
         public void DeselectTower()
         {
             selectedTower = null;
-            isTowerSelectedForPlacement = false;
-        }
-
-        public TowerScriptableObject GetSelectedTower()
-        {
-            return selectedTower;
         }
     }
 }

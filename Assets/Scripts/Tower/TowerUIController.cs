@@ -9,6 +9,11 @@ namespace STR.Tower
         
         public void OnPointerDown(PointerEventData eventData)
         {
+            if (towerData == null || TowerManager.Instance == null)
+            {
+                return;
+            }
+
             TowerManager.Instance.SelectTower(towerData);
         }
     }
