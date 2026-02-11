@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using STR.Bullet;
+using UnityEngine;
 
 namespace STR.Tower
 {
@@ -7,6 +8,9 @@ namespace STR.Tower
     {
         public TowerType towerType;
         public TowerController towerPrefab;
+        public BulletController bulletPrefab;
+        public int damage;
+        public float fireRate;
         public float attackRange;
         public float towerRotationSpeed;
         public LayerMask enemyLayer;

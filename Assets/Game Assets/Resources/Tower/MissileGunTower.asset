@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: MissileGunTower
   m_EditorClassIdentifier: 
   towerType: 2
-  towerPrefab: {fileID: 6022399883514161035, guid: 93328010885847b40a3e152844eb558c, type: 3}
+  towerPrefab: {fileID: 3975367633120609897, guid: 93328010885847b40a3e152844eb558c, type: 3}
+  bulletPrefab: {fileID: 2065466015330251211, guid: 85b1f8b04386c354b92e8b4b1dde6e9a, type: 3}
+  damage: 5
+  fireRate: 1
   attackRange: 2
   towerRotationSpeed: 10
   enemyLayer:

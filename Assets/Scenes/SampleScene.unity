@@ -149,7 +149,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectedTower: {fileID: 0}
-  isTowerSelectedForPlacement: 0
 --- !u!4 &20521521
 Transform:
   m_ObjectHideFlags: 0
@@ -1540,7 +1539,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
-  m_ApplyToSortingLayers: 00000000ed021996bb646accd5925138c378714a1bd4f478
+  m_ApplyToSortingLayers: 00000000ed021996bb646accd5925138c378714a1bd4f4780957e820
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0

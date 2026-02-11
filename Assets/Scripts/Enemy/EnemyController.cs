@@ -11,6 +11,7 @@ namespace STR.Enemy
         private Transform target;
         private int currentWaypointIndex = 0;
         private Rigidbody2D rb;
+        private int currentHealth;
 
         public EnemyController(EnemyScriptableObject enemyScriptableObject, Transform spawnPosition, List<Transform> wayPoints)
         {
@@ -25,6 +26,7 @@ namespace STR.Enemy
             rb = enemyView.GetComponent<Rigidbody2D>();
             enemyView.Bind(this);
             target = waypoints[currentWaypointIndex];
+            currentHealth = enemyScriptableObject.health;
         }
 
         public void Tick()
@@ -58,6 +60,15 @@ namespace STR.Enemy
             RotateTowardDirection(direction);
         }
 
+        public void TakeDamage(int damage)
+        {
+            currentHealth -= damage;
+            if (currentHealth <= 0)
+            {
+                Die();
+            }
+        }
+
         private void RotateTowardDirection(Vector2 direction)
         {
             if(direction.magnitude > 0.01f)
@@ -67,6 +78,11 @@ namespace STR.Enemy
                 Quaternion angleRotation = Quaternion.AngleAxis(angle, Vector3.forward);
                 enemyView.transform.rotation = Quaternion.Slerp(enemyView.transform.rotation, angleRotation, Time.fixedDeltaTime * enemyScriptableObject.rotationSpeed);
             }
+        }
+
+        private void Die()
+        {
+            Object.Destroy(enemyView.gameObject);
         }
     }
 }

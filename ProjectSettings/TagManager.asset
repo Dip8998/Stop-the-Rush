@@ -56,5 +56,8 @@ TagManager:
   - name: GunTower
     uniqueID: 2029311003
     locked: 0
+  - name: Bullet
+    uniqueID: 552097545
+    locked: 0
   m_RenderingLayers:
   - Default

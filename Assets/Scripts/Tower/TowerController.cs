@@ -6,6 +6,8 @@ namespace STR.Tower
     {
         [SerializeField] private TowerScriptableObject towerData;
 
+        public TowerScriptableObject TowerData => towerData;
+        public Transform Target => target;
         private Transform target;
 
         private void Update()
@@ -36,8 +38,10 @@ namespace STR.Tower
             }
         }
 
-        private bool IsTargetInRange()
+        public bool IsTargetInRange()
         {
+            if (towerData == null || target == null) return false;
+
             return Vector2.Distance(transform.position, target.position) <= towerData.attackRange;
         }
 
