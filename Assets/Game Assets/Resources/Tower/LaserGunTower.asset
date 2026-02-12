@@ -17,8 +17,9 @@ MonoBehaviour:
   bulletPrefab: {fileID: 2065466015330251211, guid: 60ac73dfd57a37b48a952182f22a287a, type: 3}
   damage: 1
   fireRate: 0.2
-  attackRange: 2
+  attackRange: 1.5
   towerRotationSpeed: 10
+  targetReleaseBuffer: 0.5
   enemyLayer:
     serializedVersion: 2
     m_Bits: 64

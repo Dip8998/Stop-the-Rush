@@ -9,10 +9,11 @@ namespace STR.Tower
         public TowerType towerType;
         public TowerController towerPrefab;
         public BulletController bulletPrefab;
-        public int damage;
+        public float damage;
         public float fireRate;
         public float attackRange;
         public float towerRotationSpeed;
+        public float targetReleaseBuffer;
         public LayerMask enemyLayer;
     }
 }

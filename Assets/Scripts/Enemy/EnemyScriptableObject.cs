@@ -7,7 +7,7 @@ namespace STR.Enemy
 	{
 		public EnemyView enemyPrefab;
         public EnemyType enemyType;
-		public int health;
+		public float health;
         public float moveSpeed;
 		public float rotationSpeed;	
     }

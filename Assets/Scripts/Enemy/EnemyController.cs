@@ -11,7 +11,7 @@ namespace STR.Enemy
         private Transform target;
         private int currentWaypointIndex = 0;
         private Rigidbody2D rb;
-        private int currentHealth;
+        private float currentHealth;
 
         public EnemyController(EnemyScriptableObject enemyScriptableObject, Transform spawnPosition, List<Transform> wayPoints)
         {
@@ -60,7 +60,7 @@ namespace STR.Enemy
             RotateTowardDirection(direction);
         }
 
-        public void TakeDamage(int damage)
+        public void TakeDamage(float damage)
         {
             currentHealth -= damage;
             if (currentHealth <= 0)

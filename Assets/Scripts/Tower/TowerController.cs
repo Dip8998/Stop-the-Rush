@@ -22,7 +22,7 @@ namespace STR.Tower
 
             RotateTowardsTarget();
 
-            if (!IsTargetInRange())
+            if (IsTargetOutOfReleaseRange())
             {
                 target = null;
             }
@@ -42,7 +42,16 @@ namespace STR.Tower
         {
             if (towerData == null || target == null) return false;
 
-            return Vector2.Distance(transform.position, target.position) <= towerData.attackRange;
+            float shootRange = towerData.attackRange + Mathf.Max(0f, towerData.targetReleaseBuffer);
+            return Vector2.Distance(transform.position, target.position) <= shootRange;
+        }
+
+        private bool IsTargetOutOfReleaseRange()
+        {
+            if (towerData == null || target == null) return true;
+
+            float releaseRange = towerData.attackRange + towerData.targetReleaseBuffer;
+            return Vector2.Distance(transform.position, target.position) > releaseRange;
         }
 
         private void RotateTowardsTarget()
