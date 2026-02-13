@@ -472,7 +472,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 280fb7e87ba82e046878994179d67eb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 11400000, guid: e40d79d1454e7a04a9c01a9c556a4d09, type: 2}
   wave: {fileID: 11400000, guid: 393c31b1d23e21b438fe870d63bd8c97, type: 2}
   enemySpawnPoint: {fileID: 1807299701}
   waypoints:
@@ -544,6 +543,7 @@ MonoBehaviour:
   - {fileID: 618794832}
   - {fileID: 828990983}
   - {fileID: 1302137581}
+  timeBetweenWaves: 5
 --- !u!1 &343729961
 GameObject:
   m_ObjectHideFlags: 0

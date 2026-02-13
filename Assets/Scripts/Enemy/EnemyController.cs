@@ -13,6 +13,8 @@ namespace STR.Enemy
         private Rigidbody2D rb;
         private float currentHealth;
 
+        public bool IsAlive => enemyView != null;
+
         public EnemyController(EnemyScriptableObject enemyScriptableObject, Transform spawnPosition, List<Transform> wayPoints)
         {
             this.enemyScriptableObject = enemyScriptableObject;
