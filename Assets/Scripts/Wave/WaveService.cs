@@ -12,13 +12,18 @@ namespace STR.Wave
         [SerializeField] private float timeBetweenWaves = 5f;
 
         private List<EnemyController> spawnedEnemies = new List<EnemyController>();
+        private List<int> spawnedPerGroup = new List<int>();
+
         private float spawnTimer;
         private float waveTimer;
+
         private int spawnedEnemyCount;
         private int lastGroupIndex;
-        private List<int> spawnedPerGroup = new List<int>();
+        private int currentWaveIndex = 0;
+        private int totalEnemiesInWave;
+        private WaveData currentWaveData;
+
         private WaveType currentWaveType = WaveType.WaitingToStart;
-        private int currentWaveIndex = 0;    
 
         private void Start()
         {
@@ -28,12 +33,8 @@ namespace STR.Wave
 
         private void Update()
         {
-            if (!IsWaveSetupValid())
-            {
-                return;
-            }
+            if (!IsWaveSetupValid()) return;
 
-            waveTimer -= Time.deltaTime;
             UpdateWave();
             TickUpdate();
         }
@@ -43,8 +44,17 @@ namespace STR.Wave
             switch (currentWaveType)
             {
                 case WaveType.WaitingToStart:
+                    waveTimer -= Time.deltaTime;
                     if(waveTimer <= 0f)
                     {
+                        currentWaveData = GetCurrentWaveData();
+                        if (currentWaveData == null)
+                        {
+                            currentWaveType = WaveType.Completed;
+                            break;
+                        }
+
+                        totalEnemiesInWave = GetTotalEnemies(currentWaveData);
                         currentWaveType = WaveType.Spawning;
                         spawnTimer = 0f;
                         spawnedEnemyCount = 0;
@@ -54,16 +64,19 @@ namespace STR.Wave
                     break;
 
                 case WaveType.Spawning:
-                    spawnTimer -= Time.deltaTime;
-                    if (TrySpawnEnemy())
+                    if (currentWaveData == null)
                     {
-                        spawnTimer = wave.Waves[currentWaveIndex].SpawnInterval;
+                        currentWaveType = WaveType.Completed;
+                        break;
                     }
 
-                    if (CurrentWaveCompleted())
-                    {
+                    spawnTimer -= Time.deltaTime;
+                    if (TrySpawnEnemy(currentWaveData))
+                        spawnTimer = currentWaveData.SpawnInterval;
+
+                    if (CurrentWaveCompleted(currentWaveData))
                         currentWaveType = WaveType.WaitingToComplete;
-                    }
+
                     break;
 
                 case WaveType.WaitingToComplete:
@@ -98,10 +111,7 @@ namespace STR.Wave
         {
             for (int i = spawnedEnemies.Count - 1; i >= 0; i--)
             {
-                if (spawnedEnemies[i].IsAlive)
-                {
-                    spawnedEnemies[i].FixedTick();
-                }
+                spawnedEnemies[i].FixedTick();
             }
         }
 
@@ -115,29 +125,17 @@ namespace STR.Wave
             return wave.Waves[currentWaveIndex];
         }
 
-        private bool TrySpawnEnemy()
+        private bool TrySpawnEnemy(WaveData currentWaveData)
         {
-            WaveData currentWaveData = GetCurrentWaveData();
-            if (currentWaveData == null)
-            {
-                return false;
-            }
+            if (currentWaveData == null) return false;
 
-            if (spawnedEnemyCount >= GetTotalEnemies(currentWaveData))
-            {
-                return false;
-            }
+            if (spawnedEnemyCount >= GetTotalEnemies(currentWaveData)) return false;
 
-            if(spawnTimer > 0f)
-            {
-                return false;
-            }
+            if (spawnTimer > 0f) return false;
 
             WaveEnemyGroup group = GetNextGroup(currentWaveData);
-            if (group == null || group.Enemy == null)
-            {
-                return false;
-            }
+
+            if (group == null || group.Enemy == null) return false;
 
             SpawnEnemy(group.Enemy);
             spawnedEnemyCount++;
@@ -168,21 +166,16 @@ namespace STR.Wave
             spawnTimer = 0f;
             lastGroupIndex = -1;
             spawnedPerGroup.Clear();
+            currentWaveData = null;
+            totalEnemiesInWave = 0;
             currentWaveType = WaveType.WaitingToStart;
         }
 
-        private bool CurrentWaveCompleted()
+        private bool CurrentWaveCompleted(WaveData currentWaveData)
         {
-            WaveData currentWaveData = GetCurrentWaveData();
-            if (currentWaveData == null)
-            {
-                return true;
-            }
+            if (currentWaveData == null) return true;
 
-            if (spawnedEnemyCount >= GetTotalEnemies(currentWaveData))
-            {
-                return true;
-            }
+            if (spawnedEnemyCount >= GetTotalEnemies(currentWaveData)) return true;
 
             return false;
         }
@@ -196,10 +189,7 @@ namespace STR.Wave
         private void InitializeGroupCounts()
         {
             spawnedPerGroup.Clear();
-            if (wave == null || currentWaveIndex >= wave.Waves.Count)
-            {
-                return;
-            }
+            if (wave == null || currentWaveIndex >= wave.Waves.Count) return;
 
             WaveData currentWaveData = wave.Waves[currentWaveIndex];
             for (int i = 0; i < currentWaveData.EnemyGroups.Count; i++)
@@ -210,15 +200,9 @@ namespace STR.Wave
 
         private WaveEnemyGroup GetNextGroup(WaveData currentWaveData)
         {
-            if (currentWaveData.EnemyGroups == null || currentWaveData.EnemyGroups.Count == 0)
-            {
-                return null;
-            }
+            if (currentWaveData.EnemyGroups == null || currentWaveData.EnemyGroups.Count == 0) return null;
 
-            if (spawnedPerGroup.Count != currentWaveData.EnemyGroups.Count)
-            {
-                InitializeGroupCounts();
-            }
+            if (spawnedPerGroup.Count != currentWaveData.EnemyGroups.Count) InitializeGroupCounts();
 
             int groupCount = currentWaveData.EnemyGroups.Count;
             for (int i = 0; i < groupCount; i++)
@@ -237,10 +221,7 @@ namespace STR.Wave
 
         private int GetTotalEnemies(WaveData currentWaveData)
         {
-            if (currentWaveData.EnemyGroups == null)
-            {
-                return 0;
-            }
+            if (currentWaveData.EnemyGroups == null) return 0;
 
             int total = 0;
             for (int i = 0; i < currentWaveData.EnemyGroups.Count; i++)
@@ -253,24 +234,16 @@ namespace STR.Wave
 
         private void ValidateReferences()
         {
-            if (wave == null)
-            {
+            if (wave == null) 
                 Debug.LogError("WaveService: Wave data is not assigned.");
-            }
             else if (wave.Waves == null || wave.Waves.Count == 0)
-            {
                 Debug.LogError("WaveService: Wave list is empty.");
-            }
 
             if (enemySpawnPoint == null)
-            {
                 Debug.LogError("WaveService: Enemy spawn point is not assigned.");
-            }
 
             if (waypoints == null || waypoints.Count == 0)
-            {
                 Debug.LogError("WaveService: Waypoints are not assigned.");
-            }
         }
 
         private bool IsWaveSetupValid()

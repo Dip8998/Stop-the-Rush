@@ -6,7 +6,7 @@ namespace STR.Tower
     {
         public static TowerManager Instance { get; private set; }
 
-        [SerializeField] private TowerScriptableObject selectedTower;
+        private TowerScriptableObject selectedTower;
 
         public TowerScriptableObject SelectedTower => selectedTower;
         public bool HasSelectedTower => selectedTower != null;

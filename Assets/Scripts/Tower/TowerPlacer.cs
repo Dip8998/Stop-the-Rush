@@ -40,7 +40,7 @@ namespace STR.Tower
                 if (isTowerSelected && isValidTile)
                 {
                     PlaceTower(cellPosition, selectedTower);
-                    TowerManager.Instance.DeselectTower();
+                    //TowerManager.Instance.DeselectTower(); // In future, Remove this line when trade system is implemented
                 }
             }
         }
