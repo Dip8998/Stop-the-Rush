@@ -64,7 +64,7 @@ namespace STR.Tower
                 Vector2 direction = target != null
                     ? (target.position - firePoint.position).normalized
                     : (Vector2)firePoint.up;
-                bulletController.Initialize(direction);
+                bulletController.Initialize(direction, towerController);
             }
             Destroy(projectileInstance, 2f);
         }

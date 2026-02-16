@@ -15,5 +15,6 @@ MonoBehaviour:
   enemyPrefab: {fileID: 1125167426986975108, guid: ce770336feba1fc45b86bb5acfe62ae1, type: 3}
   enemyType: 2
   health: 400
-  moveSpeed: 0.5
+  moveSpeed: 1
   rotationSpeed: 10
+  rewardAmount: 100

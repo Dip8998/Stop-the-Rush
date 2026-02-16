@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using STR.Tower;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace STR.Enemy
@@ -85,6 +86,7 @@ namespace STR.Enemy
         private void Die()
         {
             Object.Destroy(enemyView.gameObject);
+            TowerManager.Instance.EarnMoney(enemyScriptableObject.rewardAmount);
         }
     }
 }

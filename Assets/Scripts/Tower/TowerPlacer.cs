@@ -40,7 +40,11 @@ namespace STR.Tower
                 if (isTowerSelected && isValidTile)
                 {
                     PlaceTower(cellPosition, selectedTower);
-                    //TowerManager.Instance.DeselectTower(); // In future, Remove this line when trade system is implemented
+
+                    if(!TowerManager.Instance.CanAffordTower(selectedTower))
+                    {
+                        TowerManager.Instance.DeselectTower();
+                    }
                 }
             }
         }
@@ -49,10 +53,18 @@ namespace STR.Tower
 		{
             Tile tileForPlacement = towerPlacingTileMap.GetTile(cellPosition) as Tile;
 
-            if(tileForPlacement != null && selectedTower != null && selectedTower.towerPrefab != null)
+            if (TowerManager.Instance.CanAffordTower(selectedTower))
             {
-                Vector3 worldPosition = towerPlacingTileMap.CellToWorld(cellPosition) + towerPlacingTileMap.tileAnchor;
-                Instantiate(selectedTower.towerPrefab.gameObject, worldPosition, Quaternion.identity);
+                if (tileForPlacement != null && selectedTower != null && selectedTower.towerPrefab != null)
+                {
+                    Vector3 worldPosition = towerPlacingTileMap.CellToWorld(cellPosition) + towerPlacingTileMap.tileAnchor;
+                    Instantiate(selectedTower.towerPrefab.gameObject, worldPosition, Quaternion.identity);
+                    TowerManager.Instance.SpendMoney(selectedTower.cost);
+                }
+            }
+            else
+            {
+                Debug.Log("Not enough resources to place the tower.");
             }
         }
     }

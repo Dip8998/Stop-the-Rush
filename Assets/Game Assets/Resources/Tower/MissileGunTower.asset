@@ -15,11 +15,12 @@ MonoBehaviour:
   towerType: 2
   towerPrefab: {fileID: 3975367633120609897, guid: 93328010885847b40a3e152844eb558c, type: 3}
   bulletPrefab: {fileID: 2065466015330251211, guid: 85b1f8b04386c354b92e8b4b1dde6e9a, type: 3}
-  damage: 0
-  fireRate: 1
+  damage: 15
+  fireRate: 2
   attackRange: 1.5
   towerRotationSpeed: 10
   targetReleaseBuffer: 0.5
+  cost: 100
   enemyLayer:
     serializedVersion: 2
     m_Bits: 64

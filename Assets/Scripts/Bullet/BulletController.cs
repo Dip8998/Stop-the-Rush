@@ -1,4 +1,5 @@
 ﻿using STR.Enemy;
+using STR.Tower;
 using UnityEngine;
 
 namespace STR.Bullet
@@ -9,13 +10,17 @@ namespace STR.Bullet
 
         private Rigidbody2D bulletRigidBody;
         private Vector2 moveDirection = Vector2.up;
+        private TowerController towerController;
+
         private void Awake()
         {
             bulletRigidBody = GetComponent<Rigidbody2D>();
         }
 
-        public void Initialize(Vector2 direction)
+        public void Initialize(Vector2 direction, TowerController towerController)
         {
+            this.towerController = towerController;
+
             if (direction.sqrMagnitude > 0f)
             {
                 moveDirection = direction.normalized;
@@ -37,7 +42,7 @@ namespace STR.Bullet
         {
             if (collision.TryGetComponent<EnemyView>(out var enemy))
             {
-                enemy.Controller.TakeDamage(1);
+                enemy.Controller.TakeDamage(towerController.TowerData.damage);
 
                 Destroy(gameObject);
             }

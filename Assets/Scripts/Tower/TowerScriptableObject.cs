@@ -14,6 +14,7 @@ namespace STR.Tower
         public float attackRange;
         public float towerRotationSpeed;
         public float targetReleaseBuffer;
+        public int cost;
         public LayerMask enemyLayer;
     }
 }

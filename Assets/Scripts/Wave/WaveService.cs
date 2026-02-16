@@ -1,5 +1,6 @@
 using STR.Enemy;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 namespace STR.Wave
@@ -10,6 +11,8 @@ namespace STR.Wave
         [SerializeField] private Transform enemySpawnPoint;
         [SerializeField] private List<Transform> waypoints;
         [SerializeField] private float timeBetweenWaves = 5f;
+        [SerializeField] private TextMeshProUGUI waveText;
+        [SerializeField] private TextMeshProUGUI timerText;
 
         private List<EnemyController> spawnedEnemies = new List<EnemyController>();
         private List<int> spawnedPerGroup = new List<int>();
@@ -28,6 +31,9 @@ namespace STR.Wave
         private void Start()
         {
             waveTimer = timeBetweenWaves;
+            waveText.text = $"Wave: {currentWaveIndex + 1}";
+            timerText.gameObject.SetActive(true);
+
             ValidateReferences();
         }
 
@@ -37,8 +43,9 @@ namespace STR.Wave
 
             UpdateWave();
             TickUpdate();
+            timerText.text = $"00 : {waveTimer:F1}s";
         }
-        
+
         private void UpdateWave()
         {
             switch (currentWaveType)
@@ -60,6 +67,7 @@ namespace STR.Wave
                         spawnedEnemyCount = 0;
                         lastGroupIndex = -1;
                         InitializeGroupCounts();
+                        timerText.gameObject.SetActive(false);
                     }
                     break;
 
@@ -160,7 +168,7 @@ namespace STR.Wave
             }
 
             currentWaveIndex++;
-
+            waveText.text = $"Wave: {currentWaveIndex + 1}";
             waveTimer = timeBetweenWaves;
             spawnedEnemyCount = 0;
             spawnTimer = 0f;
@@ -169,6 +177,7 @@ namespace STR.Wave
             currentWaveData = null;
             totalEnemiesInWave = 0;
             currentWaveType = WaveType.WaitingToStart;
+            timerText.gameObject.SetActive(true);
         }
 
         private bool CurrentWaveCompleted(WaveData currentWaveData)

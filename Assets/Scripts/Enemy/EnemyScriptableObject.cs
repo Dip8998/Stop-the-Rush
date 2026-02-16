@@ -10,5 +10,6 @@ namespace STR.Enemy
 		public float health;
         public float moveSpeed;
 		public float rotationSpeed;	
+		public int rewardAmount;
     }
 }
