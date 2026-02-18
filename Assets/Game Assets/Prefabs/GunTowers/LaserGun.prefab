@@ -104,7 +104,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   towerData: {fileID: 11400000, guid: 102d349dc91f6fc47a3ec26b97703610, type: 2}
-  targetReleaseBuffer: 0.5
+  upgradeUIPanel: {fileID: 0}
 --- !u!114 &-3096571880537349446
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -118,7 +118,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firePoint: {fileID: 2847720273247763899}
-  laserSmoothing: 50
 --- !u!120 &2144768393550142251
 LineRenderer:
   serializedVersion: 2

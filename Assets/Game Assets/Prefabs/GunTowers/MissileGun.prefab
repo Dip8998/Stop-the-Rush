@@ -134,6 +134,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   towerData: {fileID: 11400000, guid: 4cadede6fa58ec04c97fd056147fdf83, type: 2}
+  upgradeUIPanel: {fileID: 0}
 --- !u!114 &-7003951074417302416
 MonoBehaviour:
   m_ObjectHideFlags: 0

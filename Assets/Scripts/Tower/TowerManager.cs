@@ -1,12 +1,11 @@
+using STR.UI;
 using TMPro;
 using UnityEngine;
 
 namespace STR.Tower
 {
-    public class TowerManager : MonoBehaviour   
+    public class TowerManager : MonoBehaviour
     {
-        [SerializeField] private TextMeshProUGUI moneyText;
-
         public static TowerManager Instance { get; private set; }
 
         private TowerScriptableObject selectedTower;
@@ -27,7 +26,7 @@ namespace STR.Tower
 
         private void Start()
         {
-            moneyText.text = $"Coins: {Money}";
+            UpdateUI();
         }
 
         public void SelectTower(TowerScriptableObject tower)
@@ -50,13 +49,18 @@ namespace STR.Tower
         public void SpendMoney(int amount)
         {
             Money -= amount;
-            moneyText.text = $"Coins: {Money}";
+            UpdateUI();
         }
 
         public void EarnMoney(int amount)
         {
             Money += amount;
-            moneyText.text = $"Coins: {Money}";
+            UpdateUI();
+        }
+
+        public void UpdateUI()
+        {
+            UIService.Instance.UpdateMoney(Money);
         }
     }
 }

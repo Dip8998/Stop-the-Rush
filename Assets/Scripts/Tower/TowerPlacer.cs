@@ -60,6 +60,7 @@ namespace STR.Tower
                     Vector3 worldPosition = towerPlacingTileMap.CellToWorld(cellPosition) + towerPlacingTileMap.tileAnchor;
                     Instantiate(selectedTower.towerPrefab.gameObject, worldPosition, Quaternion.identity);
                     TowerManager.Instance.SpendMoney(selectedTower.cost);
+                    towerPlacingTileMap.SetTile(cellPosition, null);
                 }
             }
             else

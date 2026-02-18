@@ -1,4 +1,5 @@
 using STR.Enemy;
+using STR.UI;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -11,8 +12,6 @@ namespace STR.Wave
         [SerializeField] private Transform enemySpawnPoint;
         [SerializeField] private List<Transform> waypoints;
         [SerializeField] private float timeBetweenWaves = 5f;
-        [SerializeField] private TextMeshProUGUI waveText;
-        [SerializeField] private TextMeshProUGUI timerText;
 
         private List<EnemyController> spawnedEnemies = new List<EnemyController>();
         private List<int> spawnedPerGroup = new List<int>();
@@ -31,8 +30,8 @@ namespace STR.Wave
         private void Start()
         {
             waveTimer = timeBetweenWaves;
-            waveText.text = $"Wave: {currentWaveIndex + 1}";
-            timerText.gameObject.SetActive(true);
+            UIService.Instance.UpdateWaveText(currentWaveIndex + 1);
+            UIService.Instance.ShowWaveTimerText(true);
 
             ValidateReferences();
         }
@@ -43,7 +42,7 @@ namespace STR.Wave
 
             UpdateWave();
             TickUpdate();
-            timerText.text = $"00 : {waveTimer:F1}s";
+            UIService.Instance.UpdateWaveTimer(waveTimer);
         }
 
         private void UpdateWave()
@@ -67,7 +66,7 @@ namespace STR.Wave
                         spawnedEnemyCount = 0;
                         lastGroupIndex = -1;
                         InitializeGroupCounts();
-                        timerText.gameObject.SetActive(false);
+                        UIService.Instance.ShowWaveTimerText(false);
                     }
                     break;
 
@@ -168,7 +167,7 @@ namespace STR.Wave
             }
 
             currentWaveIndex++;
-            waveText.text = $"Wave: {currentWaveIndex + 1}";
+            UIService.Instance.UpdateWaveText(currentWaveIndex + 1);
             waveTimer = timeBetweenWaves;
             spawnedEnemyCount = 0;
             spawnTimer = 0f;
@@ -177,7 +176,7 @@ namespace STR.Wave
             currentWaveData = null;
             totalEnemiesInWave = 0;
             currentWaveType = WaveType.WaitingToStart;
-            timerText.gameObject.SetActive(true);
+            UIService.Instance.ShowWaveTimerText(true);
         }
 
         private bool CurrentWaveCompleted(WaveData currentWaveData)
