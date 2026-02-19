@@ -8,14 +8,16 @@ namespace STR.UI
     {
         [SerializeField] private Button restartButton;
         [SerializeField] private Button quitButton;
+        [SerializeField] private Button mainMenuButton;
 
         private void Awake()
         {
             restartButton.onClick.AddListener(OnRestartButtonClicked);
             quitButton.onClick.AddListener(OnQuitButtonClicked);
+            mainMenuButton.onClick.AddListener(OnMainMenuButtonClicked);
         }
 
-        private void OnRestartButtonClicked()
+        public void OnRestartButtonClicked()
         {
             UIService.SkipMainMenuOnce = true;
             Time.timeScale = 1f;
@@ -30,6 +32,13 @@ namespace STR.UI
         public void Active(bool active)
         {
             gameObject.SetActive(active);
+        }
+
+        public void OnMainMenuButtonClicked()
+        {
+            UIService.SkipMainMenuOnce = false;
+            Time.timeScale = 1f;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 }

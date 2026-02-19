@@ -98,5 +98,10 @@ namespace STR.UI
                 gameOverController.Active(show);
             }
         }
+
+        public void RestartGame()
+        {
+            gameOverController.OnRestartButtonClicked();
+        }
     }
 }

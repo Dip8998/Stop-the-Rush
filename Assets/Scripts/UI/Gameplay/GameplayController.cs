@@ -1,5 +1,6 @@
 ﻿using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace STR.UI
 {
@@ -8,6 +9,12 @@ namespace STR.UI
         [SerializeField] private TextMeshProUGUI moenyText;
         [SerializeField] private TextMeshProUGUI waveNumberText;
         [SerializeField] private TextMeshProUGUI waveTimerText;
+        [SerializeField] private Button restartButton;
+
+        private void Awake()
+        {
+            restartButton.onClick.AddListener(OnRestartButtonClicked);
+        }
 
         public void UpdateMoney(int money)
         {
@@ -41,6 +48,11 @@ namespace STR.UI
         public void Active(bool active)
         {
             gameObject.SetActive(active);
+        }
+
+        private void OnRestartButtonClicked()
+        {
+            UIService.Instance.RestartGame();
         }
     }
 }
