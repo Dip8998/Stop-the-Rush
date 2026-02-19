@@ -18,3 +18,4 @@ MonoBehaviour:
   moveSpeed: 1
   rotationSpeed: 10
   rewardAmount: 100
+  Damage: 10

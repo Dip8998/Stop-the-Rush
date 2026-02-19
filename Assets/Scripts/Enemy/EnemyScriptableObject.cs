@@ -11,5 +11,6 @@ namespace STR.Enemy
         public float moveSpeed;
 		public float rotationSpeed;	
 		public int rewardAmount;
+		public int Damage;
     }
 }

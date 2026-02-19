@@ -10,7 +10,6 @@ namespace STR.UI
 
         private void Awake()
         {
-            Time.timeScale = 0f;
             playButton.onClick.AddListener(OnPlayButtonClicked);
             quitButton.onClick.AddListener(OnQuitButtonClicked);
         }

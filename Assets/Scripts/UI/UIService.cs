@@ -7,9 +7,13 @@ namespace STR.UI
         private static UIService instance;
         public static UIService Instance => instance;
 
+        public static bool SkipMainMenuOnce { get; set; }
+
         [SerializeField] private GameplayController gameplayController;
 
         [SerializeField] private MainMenuController mainMenuController;
+
+        [SerializeField] private GameOverController gameOverController;
 
         private void Awake()
         {
@@ -19,12 +23,24 @@ namespace STR.UI
                 return;
             }
             instance = this;
+            Time.timeScale = 0f;
         }
 
         private void Start()
         {
+            if (SkipMainMenuOnce)
+            {
+                Time.timeScale = 1f;
+                SkipMainMenuOnce = false;
+                ShowMainMenuPanel(false);
+                ShowGameplayPanel(true);
+                ShowGameOverPanel(false);
+                return;
+            }
+
             ShowMainMenuPanel(true);
             ShowGameplayPanel(false);
+            ShowGameOverPanel(false);
         }
 
         public void UpdateMoney(int money)
@@ -72,6 +88,14 @@ namespace STR.UI
             if (mainMenuController != null)
             {
                 mainMenuController.Active(show);
+            }
+        }
+
+        public void ShowGameOverPanel(bool show)
+        {
+            if (gameOverController != null)
+            {
+                gameOverController.Active(show);
             }
         }
     }

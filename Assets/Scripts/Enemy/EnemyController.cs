@@ -15,7 +15,7 @@ namespace STR.Enemy
         private float currentHealth;
 
         public bool IsAlive => enemyView != null;
-
+        public EnemyScriptableObject EnemyData => enemyScriptableObject;
         public EnemyController(EnemyScriptableObject enemyScriptableObject, Transform spawnPosition, List<Transform> wayPoints)
         {
             this.enemyScriptableObject = enemyScriptableObject;
@@ -41,8 +41,6 @@ namespace STR.Enemy
                 currentWaypointIndex++;
                 if (currentWaypointIndex == waypoints.Count)
                 {
-                    // Enemy reached the end of the path, you can handle it here (e.g., reduce player health)
-                    Object.Destroy(enemyView.gameObject);
                     return;
                 }
                 else
