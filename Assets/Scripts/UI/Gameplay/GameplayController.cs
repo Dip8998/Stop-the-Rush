@@ -9,11 +9,11 @@ namespace STR.UI
         [SerializeField] private TextMeshProUGUI moenyText;
         [SerializeField] private TextMeshProUGUI waveNumberText;
         [SerializeField] private TextMeshProUGUI waveTimerText;
-        [SerializeField] private Button restartButton;
+        [SerializeField] private Button pauseButton;
 
         private void Awake()
         {
-            restartButton.onClick.AddListener(OnRestartButtonClicked);
+            pauseButton.onClick.AddListener(OnPauseButtonClicked);
         }
 
         public void UpdateMoney(int money)
@@ -45,14 +45,16 @@ namespace STR.UI
             waveTimerText.gameObject.SetActive(active);
         }
 
+        private void OnPauseButtonClicked()
+        {
+            Time.timeScale = 0f; 
+            Active(false);
+            UIService.Instance.ShowPausePanel(true);
+        }
+
         public void Active(bool active)
         {
             gameObject.SetActive(active);
-        }
-
-        private void OnRestartButtonClicked()
-        {
-            UIService.Instance.RestartGame();
         }
     }
 }
