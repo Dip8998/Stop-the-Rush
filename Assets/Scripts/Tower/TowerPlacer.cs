@@ -1,6 +1,7 @@
+using STR.UI;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 using UnityEngine.EventSystems;
+using UnityEngine.Tilemaps;
 
 namespace STR.Tower
 {
@@ -65,7 +66,7 @@ namespace STR.Tower
             }
             else
             {
-                Debug.Log("Not enough resources to place the tower.");
+                UIService.Instance.ShowNotificationPanel("Not enough money!", true);
             }
         }
     }

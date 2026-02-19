@@ -16,6 +16,9 @@ namespace STR.UI
         [SerializeField] private GameOverController gameOverController;
 
         [SerializeField] private PauseController pauseController;
+
+        [SerializeField] private NotificationController notificationController;
+
         private void Awake()
         {
             if (instance != null && instance != this)
@@ -37,6 +40,8 @@ namespace STR.UI
                 ShowGameplayPanel(true);
                 ShowGameOverPanel(false);
                 ShowPausePanel(false);
+                ShowNotificationPanel("", false);
+
                 return;
             }
 
@@ -44,6 +49,7 @@ namespace STR.UI
             ShowGameplayPanel(false);
             ShowGameOverPanel(false);
             ShowPausePanel(false);
+            ShowNotificationPanel("", false);
         }
 
         public void UpdateMoney(int money)
@@ -107,6 +113,14 @@ namespace STR.UI
             if (gameplayController != null)
             {
                 pauseController.Active(show);
+            }
+        }
+        
+        public void ShowNotificationPanel(string message, bool show)
+        {
+            if (notificationController != null)
+            {
+                notificationController.ShowNotification(message, show);
             }
         }
 
