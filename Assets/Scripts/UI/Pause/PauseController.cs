@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace STR.UI
@@ -19,21 +18,17 @@ namespace STR.UI
 
         private void OnResumeButtonClicked()
         {
-            Time.timeScale = 1f; 
-            gameObject.SetActive(false); 
-            UIService.Instance.ShowGameplayPanel(true);
+            UIEvents.RaiseResumeRequested();
         }
 
         private void OnRestartButtonClicked()
         {
-            UIService.Instance.RestartGame();   
+            UIEvents.RaiseRestartRequested();
         }
 
         private void OnMainMenuButtonClicked()
         {
-            UIService.SkipMainMenuOnce = false;
-            Time.timeScale = 1f;
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            UIEvents.RaiseMainMenuRequested();
         }
 
         public void Active (bool active)

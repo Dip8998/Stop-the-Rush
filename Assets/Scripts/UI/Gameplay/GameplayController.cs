@@ -47,9 +47,7 @@ namespace STR.UI
 
         private void OnPauseButtonClicked()
         {
-            Time.timeScale = 0f; 
-            Active(false);
-            UIService.Instance.ShowPausePanel(true);
+            UIEvents.RaisePauseRequested();
         }
 
         public void Active(bool active)

@@ -39,9 +39,7 @@ namespace STR.Player
 
         public void Die()
         {
-            UIService.Instance.ShowGameplayPanel(false);
-            UIService.Instance.ShowGameOverPanel(true);
-            Time.timeScale = 0f;
+            UIEvents.RaiseGameOverTriggered();
         }
 
         private void OnTriggerEnter2D(Collider2D collision)

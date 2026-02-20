@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace STR.UI
 {
@@ -28,6 +29,36 @@ namespace STR.UI
             }
             instance = this;
             Time.timeScale = 0f;
+        }
+
+        private void OnEnable()
+        {
+            UIEvents.MoneyChanged += UpdateMoney;
+            UIEvents.WaveChanged += UpdateWaveText;
+            UIEvents.WaveTimerChanged += UpdateWaveTimer;
+            UIEvents.WaveTimerVisibilityChanged += ShowWaveTimerText;
+            UIEvents.NotificationRequested += HandleNotificationRequested;
+            UIEvents.PlayRequested += HandlePlayRequested;
+            UIEvents.PauseRequested += HandlePauseRequested;
+            UIEvents.ResumeRequested += HandleResumeRequested;
+            UIEvents.RestartRequested += HandleRestartRequested;
+            UIEvents.MainMenuRequested += HandleMainMenuRequested;
+            UIEvents.GameOverTriggered += HandleGameOverTriggered;
+        }
+
+        private void OnDisable()
+        {
+            UIEvents.MoneyChanged -= UpdateMoney;
+            UIEvents.WaveChanged -= UpdateWaveText;
+            UIEvents.WaveTimerChanged -= UpdateWaveTimer;
+            UIEvents.WaveTimerVisibilityChanged -= ShowWaveTimerText;
+            UIEvents.NotificationRequested -= HandleNotificationRequested;
+            UIEvents.PlayRequested -= HandlePlayRequested;
+            UIEvents.PauseRequested -= HandlePauseRequested;
+            UIEvents.ResumeRequested -= HandleResumeRequested;
+            UIEvents.RestartRequested -= HandleRestartRequested;
+            UIEvents.MainMenuRequested -= HandleMainMenuRequested;
+            UIEvents.GameOverTriggered -= HandleGameOverTriggered;
         }
 
         private void Start()
@@ -110,7 +141,7 @@ namespace STR.UI
 
         public void ShowPausePanel(bool show)
         {
-            if (gameplayController != null)
+            if (pauseController != null)
             {
                 pauseController.Active(show);
             }
@@ -127,6 +158,54 @@ namespace STR.UI
         public void RestartGame()
         {
             gameOverController.OnRestartButtonClicked();
+        }
+
+        private void HandleNotificationRequested(string message)
+        {
+            ShowNotificationPanel(message, true);
+        }
+
+        private void HandlePlayRequested()
+        {
+            ShowMainMenuPanel(false);
+            ShowGameplayPanel(true);
+            ShowGameOverPanel(false);
+            ShowPausePanel(false);
+            Time.timeScale = 1f;
+        }
+
+        private void HandlePauseRequested()
+        {
+            Time.timeScale = 0f;
+            ShowGameplayPanel(false);
+            ShowPausePanel(true);
+        }
+
+        private void HandleResumeRequested()
+        {
+            Time.timeScale = 1f;
+            ShowPausePanel(false);
+            ShowGameplayPanel(true);
+        }
+
+        private void HandleRestartRequested()
+        {
+            RestartGame();
+        }
+
+        private void HandleMainMenuRequested()
+        {
+            SkipMainMenuOnce = false;
+            Time.timeScale = 1f;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+
+        private void HandleGameOverTriggered()
+        {
+            ShowGameplayPanel(false);
+            ShowGameOverPanel(true);
+            ShowPausePanel(false);
+            Time.timeScale = 0f;
         }
     }
 }

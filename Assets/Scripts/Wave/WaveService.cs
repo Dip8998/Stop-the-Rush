@@ -30,8 +30,8 @@ namespace STR.Wave
         private void Start()
         {
             waveTimer = timeBetweenWaves;
-            UIService.Instance.UpdateWaveText(currentWaveIndex + 1);
-            UIService.Instance.ShowWaveTimerText(true);
+            UIEvents.RaiseWaveChanged(currentWaveIndex + 1);
+            UIEvents.RaiseWaveTimerVisibilityChanged(true);
 
             ValidateReferences();
         }
@@ -42,7 +42,7 @@ namespace STR.Wave
 
             UpdateWave();
             TickUpdate();
-            UIService.Instance.UpdateWaveTimer(waveTimer);
+            UIEvents.RaiseWaveTimerChanged(waveTimer);
         }
 
         private void UpdateWave()
@@ -66,7 +66,7 @@ namespace STR.Wave
                         spawnedEnemyCount = 0;
                         lastGroupIndex = -1;
                         InitializeGroupCounts();
-                        UIService.Instance.ShowWaveTimerText(false);
+                        UIEvents.RaiseWaveTimerVisibilityChanged(false);
                     }
                     break;
 
@@ -167,7 +167,7 @@ namespace STR.Wave
             }
 
             currentWaveIndex++;
-            UIService.Instance.UpdateWaveText(currentWaveIndex + 1);
+            UIEvents.RaiseWaveChanged(currentWaveIndex + 1);
             waveTimer = timeBetweenWaves;
             spawnedEnemyCount = 0;
             spawnTimer = 0f;
@@ -176,7 +176,7 @@ namespace STR.Wave
             currentWaveData = null;
             totalEnemiesInWave = 0;
             currentWaveType = WaveType.WaitingToStart;
-            UIService.Instance.ShowWaveTimerText(true);
+            UIEvents.RaiseWaveTimerVisibilityChanged(true);
         }
 
         private bool CurrentWaveCompleted(WaveData currentWaveData)

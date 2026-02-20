@@ -60,7 +60,7 @@ namespace STR.Tower
 
         public void UpdateUI()
         {
-            UIService.Instance.UpdateMoney(Money);
+            UIEvents.RaiseMoneyChanged(Money);
         }
     }
 }

@@ -16,9 +16,7 @@ namespace STR.UI
 
         private void OnPlayButtonClicked()
         {
-            Active(false);
-            UIService.Instance.ShowGameplayPanel(true);
-            Time.timeScale = 1f;
+            UIEvents.RaisePlayRequested();
         }
 
         private void OnQuitButtonClicked()
