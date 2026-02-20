@@ -16,23 +16,23 @@ MonoBehaviour:
   - EnemyGroups:
     - Enemy: {fileID: 11400000, guid: e40d79d1454e7a04a9c01a9c556a4d09, type: 2}
       Count: 10
-    SpawnInterval: 1
+    SpawnInterval: 0.2
   - EnemyGroups:
     - Enemy: {fileID: 11400000, guid: e40d79d1454e7a04a9c01a9c556a4d09, type: 2}
       Count: 15
-    SpawnInterval: 1
+    SpawnInterval: 0.2
   - EnemyGroups:
     - Enemy: {fileID: 11400000, guid: e40d79d1454e7a04a9c01a9c556a4d09, type: 2}
       Count: 15
     - Enemy: {fileID: 11400000, guid: 7cc9c521ebfafe745aa611a2f4e31c3e, type: 2}
       Count: 5
-    SpawnInterval: 1
+    SpawnInterval: 0.2
   - EnemyGroups:
     - Enemy: {fileID: 11400000, guid: e40d79d1454e7a04a9c01a9c556a4d09, type: 2}
       Count: 10
     - Enemy: {fileID: 11400000, guid: 7cc9c521ebfafe745aa611a2f4e31c3e, type: 2}
       Count: 10
-    SpawnInterval: 1
+    SpawnInterval: 0.2
   - EnemyGroups:
     - Enemy: {fileID: 11400000, guid: e40d79d1454e7a04a9c01a9c556a4d09, type: 2}
       Count: 15
@@ -40,7 +40,7 @@ MonoBehaviour:
       Count: 10
     - Enemy: {fileID: 11400000, guid: ea42d5a1d407f61468dca3df7aa516cc, type: 2}
       Count: 5
-    SpawnInterval: 1
+    SpawnInterval: 0.2
   - EnemyGroups:
     - Enemy: {fileID: 11400000, guid: e40d79d1454e7a04a9c01a9c556a4d09, type: 2}
       Count: 10
@@ -48,7 +48,7 @@ MonoBehaviour:
       Count: 10
     - Enemy: {fileID: 11400000, guid: ea42d5a1d407f61468dca3df7aa516cc, type: 2}
       Count: 10
-    SpawnInterval: 1
+    SpawnInterval: 0.2
   - EnemyGroups:
     - Enemy: {fileID: 11400000, guid: e40d79d1454e7a04a9c01a9c556a4d09, type: 2}
       Count: 15
@@ -56,7 +56,7 @@ MonoBehaviour:
       Count: 15
     - Enemy: {fileID: 11400000, guid: ea42d5a1d407f61468dca3df7aa516cc, type: 2}
       Count: 10
-    SpawnInterval: 1
+    SpawnInterval: 0.2
   - EnemyGroups:
     - Enemy: {fileID: 11400000, guid: e40d79d1454e7a04a9c01a9c556a4d09, type: 2}
       Count: 10
@@ -64,7 +64,7 @@ MonoBehaviour:
       Count: 15
     - Enemy: {fileID: 11400000, guid: ea42d5a1d407f61468dca3df7aa516cc, type: 2}
       Count: 15
-    SpawnInterval: 1
+    SpawnInterval: 0.2
   - EnemyGroups:
     - Enemy: {fileID: 11400000, guid: e40d79d1454e7a04a9c01a9c556a4d09, type: 2}
       Count: 20
@@ -72,7 +72,7 @@ MonoBehaviour:
       Count: 15
     - Enemy: {fileID: 11400000, guid: ea42d5a1d407f61468dca3df7aa516cc, type: 2}
       Count: 15
-    SpawnInterval: 1
+    SpawnInterval: 0.2
   - EnemyGroups:
     - Enemy: {fileID: 11400000, guid: e40d79d1454e7a04a9c01a9c556a4d09, type: 2}
       Count: 10
@@ -80,4 +80,4 @@ MonoBehaviour:
       Count: 20
     - Enemy: {fileID: 11400000, guid: ea42d5a1d407f61468dca3df7aa516cc, type: 2}
       Count: 20
-    SpawnInterval: 1
+    SpawnInterval: 0.2

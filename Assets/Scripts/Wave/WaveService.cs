@@ -157,12 +157,14 @@ namespace STR.Wave
             if (wave.Waves.Count == 0)
             {
                 currentWaveType = WaveType.Completed;
+                UIEvents.RaiseGameWinTriggered();
                 return;
             }
 
             if (currentWaveIndex >= wave.Waves.Count - 1)
             {
                 currentWaveType = WaveType.Completed;
+                UIEvents.RaiseGameWinTriggered();
                 return;
             }
 

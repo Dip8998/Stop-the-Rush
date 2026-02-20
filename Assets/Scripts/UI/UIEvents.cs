@@ -15,6 +15,7 @@ namespace STR.UI
         public static event Action RestartRequested;
         public static event Action MainMenuRequested;
         public static event Action GameOverTriggered;
+        public static event Action GameWinTriggered;
 
         public static void RaiseMoneyChanged(int money) => MoneyChanged?.Invoke(money);
         public static void RaiseWaveChanged(int waveNumber) => WaveChanged?.Invoke(waveNumber);
@@ -27,5 +28,6 @@ namespace STR.UI
         public static void RaiseRestartRequested() => RestartRequested?.Invoke();
         public static void RaiseMainMenuRequested() => MainMenuRequested?.Invoke();
         public static void RaiseGameOverTriggered() => GameOverTriggered?.Invoke();
+        public static void RaiseGameWinTriggered() => GameWinTriggered?.Invoke();
     }
 }

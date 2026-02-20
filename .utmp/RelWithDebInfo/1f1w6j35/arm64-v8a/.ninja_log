@@ -1,0 +1,12 @@
+# ninja log v5
+55	404	7933146435302754	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	21b95460a5ad6496
+406	1005	7933146441294114	D:/PersonalProjects/Stop the Rush/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/1f1w6j35/obj/arm64-v8a/libswappywrapper.so	90f3ac589460080e
+26	2149	7933146452546374	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	db112d97c9b8ebeb
+13	2179	7933146452809063	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	55f4504d0ba35486
+39	2187	7933146452990329	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	613e7af42a89f10b
+47	2357	7933146454744519	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	f1177d76f0c2275f
+19	2436	7933146455531959	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	2a772936c47e8281
+8	2492	7933146456101467	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	ad9f2e0879b7cd1d
+32	2670	7933146457877083	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	ac73e4446ee891fc
+1	2847	7933146459615223	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	3b10ad7f401db1f5
+2847	2995	7933146461272155	D:/PersonalProjects/Stop the Rush/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/1f1w6j35/obj/arm64-v8a/libgame.so	69c47f821431ede4

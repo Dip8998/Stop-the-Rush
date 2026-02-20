@@ -11,13 +11,10 @@ namespace STR.UI
         public static bool SkipMainMenuOnce { get; set; }
 
         [SerializeField] private GameplayController gameplayController;
-
         [SerializeField] private MainMenuController mainMenuController;
-
         [SerializeField] private GameOverController gameOverController;
-
+        [SerializeField] private GameWinController gameWinController;
         [SerializeField] private PauseController pauseController;
-
         [SerializeField] private NotificationController notificationController;
 
         private void Awake()
@@ -44,6 +41,7 @@ namespace STR.UI
             UIEvents.RestartRequested += HandleRestartRequested;
             UIEvents.MainMenuRequested += HandleMainMenuRequested;
             UIEvents.GameOverTriggered += HandleGameOverTriggered;
+            UIEvents.GameWinTriggered += HandleGameWinTriggered;
         }
 
         private void OnDisable()
@@ -59,6 +57,7 @@ namespace STR.UI
             UIEvents.RestartRequested -= HandleRestartRequested;
             UIEvents.MainMenuRequested -= HandleMainMenuRequested;
             UIEvents.GameOverTriggered -= HandleGameOverTriggered;
+            UIEvents.GameWinTriggered -= HandleGameWinTriggered;
         }
 
         private void Start()
@@ -70,6 +69,7 @@ namespace STR.UI
                 ShowMainMenuPanel(false);
                 ShowGameplayPanel(true);
                 ShowGameOverPanel(false);
+                ShowGameWinPanel(false);
                 ShowPausePanel(false);
                 ShowNotificationPanel("", false);
 
@@ -79,6 +79,7 @@ namespace STR.UI
             ShowMainMenuPanel(true);
             ShowGameplayPanel(false);
             ShowGameOverPanel(false);
+            ShowGameWinPanel(false);
             ShowPausePanel(false);
             ShowNotificationPanel("", false);
         }
@@ -139,6 +140,14 @@ namespace STR.UI
             }
         }
 
+        public void ShowGameWinPanel(bool show)
+        {
+            if (gameWinController != null)
+            {
+                gameWinController.Active(show);
+            }
+        }
+
         public void ShowPausePanel(bool show)
         {
             if (pauseController != null)
@@ -157,7 +166,9 @@ namespace STR.UI
 
         public void RestartGame()
         {
-            gameOverController.OnRestartButtonClicked();
+            SkipMainMenuOnce = true;
+            Time.timeScale = 1f;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 
         private void HandleNotificationRequested(string message)
@@ -170,6 +181,7 @@ namespace STR.UI
             ShowMainMenuPanel(false);
             ShowGameplayPanel(true);
             ShowGameOverPanel(false);
+            ShowGameWinPanel(false);
             ShowPausePanel(false);
             Time.timeScale = 1f;
         }
@@ -204,6 +216,16 @@ namespace STR.UI
         {
             ShowGameplayPanel(false);
             ShowGameOverPanel(true);
+            ShowGameWinPanel(false);
+            ShowPausePanel(false);
+            Time.timeScale = 0f;
+        }
+
+        private void HandleGameWinTriggered()
+        {
+            ShowGameplayPanel(false);
+            ShowGameWinPanel(true);
+            ShowGameOverPanel(false);
             ShowPausePanel(false);
             Time.timeScale = 0f;
         }

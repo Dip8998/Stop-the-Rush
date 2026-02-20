@@ -23,28 +23,30 @@ namespace STR.Tower
 
         private void PlaceTowerOnTileMap()
         {
-            if (Input.GetMouseButtonDown(0) && mainCamera != null && towerPlacingTileMap != null)
+            if (Input.touchCount > 0 && mainCamera != null && towerPlacingTileMap != null)
             {
-                Vector3 worldPosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
-                Vector3Int cellPosition = towerPlacingTileMap.WorldToCell(worldPosition);
+                Touch touch = Input.GetTouch(0);
 
-                if (TowerManager.Instance == null)
+                if (touch.phase == TouchPhase.Began)
                 {
-                    return;
-                }
+                    Vector3 worldPosition = mainCamera.ScreenToWorldPoint(touch.position);
+                    Vector3Int cellPosition = towerPlacingTileMap.WorldToCell(worldPosition);
 
-                TowerScriptableObject selectedTower = TowerManager.Instance.SelectedTower;
-                bool isTowerSelected = TowerManager.Instance.HasSelectedTower;
+                    if (TowerManager.Instance == null)
+                        return;
 
-                bool isValidTile = towerPlacingTileMap.GetTile(cellPosition) != null;
+                    TowerScriptableObject selectedTower = TowerManager.Instance.SelectedTower;
+                    bool isTowerSelected = TowerManager.Instance.HasSelectedTower;
+                    bool isValidTile = towerPlacingTileMap.GetTile(cellPosition) != null;
 
-                if (isTowerSelected && isValidTile)
-                {
-                    PlaceTower(cellPosition, selectedTower);
-
-                    if(!TowerManager.Instance.CanAffordTower(selectedTower))
+                    if (isTowerSelected && isValidTile)
                     {
-                        TowerManager.Instance.DeselectTower();
+                        PlaceTower(cellPosition, selectedTower);
+
+                        if (!TowerManager.Instance.CanAffordTower(selectedTower))
+                        {
+                            TowerManager.Instance.DeselectTower();
+                        }
                     }
                 }
             }
