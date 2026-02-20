@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using STR.Enemy;
+using UnityEngine;
 
 namespace STR.Tower
 {
@@ -30,12 +31,7 @@ namespace STR.Tower
 
         private void FindTarget()
         {
-            RaycastHit2D[] hits = Physics2D.CircleCastAll(transform.position, towerData.attackRange, Vector2.zero, 0f, towerData.enemyLayer);
-
-            if(hits.Length > 0)
-            {
-                target = hits[0].transform;
-            }
+            target = EnemyRegistry.GetClosestTarget(transform.position, towerData.attackRange);
         }
 
         public bool IsTargetInRange()
@@ -43,7 +39,8 @@ namespace STR.Tower
             if (towerData == null || target == null) return false;
 
             float shootRange = towerData.attackRange + Mathf.Max(0f, towerData.targetReleaseBuffer);
-            return Vector2.Distance(transform.position, target.position) <= shootRange;
+            float shootRangeSqr = shootRange * shootRange;
+            return (target.position - transform.position).sqrMagnitude <= shootRangeSqr;
         }
 
         private bool IsTargetOutOfReleaseRange()
@@ -51,7 +48,8 @@ namespace STR.Tower
             if (towerData == null || target == null) return true;
 
             float releaseRange = towerData.attackRange + towerData.targetReleaseBuffer;
-            return Vector2.Distance(transform.position, target.position) > releaseRange;
+            float releaseRangeSqr = releaseRange * releaseRange;
+            return (target.position - transform.position).sqrMagnitude > releaseRangeSqr;
         }
 
         private void RotateTowardsTarget()

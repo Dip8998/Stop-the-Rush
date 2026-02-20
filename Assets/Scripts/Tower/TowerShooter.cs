@@ -1,5 +1,6 @@
 ﻿using STR.Bullet;
 using STR.Enemy;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace STR.Tower
@@ -7,10 +8,13 @@ namespace STR.Tower
     public class TowerShooter : MonoBehaviour
     {
         [SerializeField] private Transform firePoint;
+        [SerializeField] private int bulletPoolSize = 8;
+        [SerializeField] private float bulletLifetime = 2f;
 
         private TowerController towerController;
         private float shootTimer;
         private LineRenderer lineRenderer;
+        private readonly Queue<BulletController> bulletPool = new Queue<BulletController>();
 
         private void Start()
         {
@@ -21,6 +25,8 @@ namespace STR.Tower
                 lineRenderer.enabled = false;
                 lineRenderer.useWorldSpace = true;
             }
+
+            PrewarmBulletPool();
         }
 
         private void Update()
@@ -55,18 +61,70 @@ namespace STR.Tower
 
         private void ShootBulletProjectile()
         {
-            GameObject projectileInstance = Instantiate(towerController.TowerData.bulletPrefab.gameObject, firePoint.position, transform.rotation);
-            BulletController bulletController = projectileInstance.GetComponent<BulletController>();
-
-            if (bulletController != null)
+            BulletController bulletController = GetBulletFromPool();
+            if (bulletController == null)
             {
-                Transform target = towerController.Target;
-                Vector2 direction = target != null
-                    ? (target.position - firePoint.position).normalized
-                    : (Vector2)firePoint.up;
-                bulletController.Initialize(direction, towerController);
+                return;
             }
-            Destroy(projectileInstance, 2f);
+
+            bulletController.transform.SetPositionAndRotation(firePoint.position, transform.rotation);
+            bulletController.gameObject.SetActive(true);
+
+            Transform target = towerController.Target;
+            Vector2 direction = target != null
+                ? (target.position - firePoint.position).normalized
+                : (Vector2)firePoint.up;
+            bulletController.Initialize(direction, towerController.TowerData.damage, bulletLifetime);
+        }
+
+        private void PrewarmBulletPool()
+        {
+            if (towerController == null || towerController.TowerData == null || towerController.TowerData.bulletPrefab == null)
+            {
+                return;
+            }
+
+            for (int i = 0; i < bulletPoolSize; i++)
+            {
+                BulletController bullet = CreateBulletInstance();
+                if (bullet != null)
+                {
+                    bulletPool.Enqueue(bullet);
+                }
+            }
+        }
+
+        private BulletController GetBulletFromPool()
+        {
+            if (towerController == null || towerController.TowerData == null || towerController.TowerData.bulletPrefab == null)
+            {
+                return null;
+            }
+
+            if (bulletPool.Count > 0)
+            {
+                return bulletPool.Dequeue();
+            }
+
+            return CreateBulletInstance();
+        }
+
+        private BulletController CreateBulletInstance()
+        {
+            BulletController bullet = Instantiate(towerController.TowerData.bulletPrefab, firePoint.position, transform.rotation);
+            bullet.Configure(ReturnBulletToPool);
+            bullet.gameObject.SetActive(false);
+            return bullet;
+        }
+
+        private void ReturnBulletToPool(BulletController bullet)
+        {
+            if (bullet == null)
+            {
+                return;
+            }
+
+            bulletPool.Enqueue(bullet);
         }
 
         private void ShootLaser()

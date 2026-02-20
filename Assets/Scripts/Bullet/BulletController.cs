@@ -1,5 +1,6 @@
 ﻿using STR.Enemy;
-using STR.Tower;
+using System;
+using System.Collections;
 using UnityEngine;
 
 namespace STR.Bullet
@@ -10,22 +11,36 @@ namespace STR.Bullet
 
         private Rigidbody2D bulletRigidBody;
         private Vector2 moveDirection = Vector2.up;
-        private TowerController towerController;
+        private float damage;
+        private Action<BulletController> onDespawn;
+        private Coroutine lifeRoutine;
 
         private void Awake()
         {
             bulletRigidBody = GetComponent<Rigidbody2D>();
         }
 
-        public void Initialize(Vector2 direction, TowerController towerController)
+        public void Configure(Action<BulletController> onDespawn)
         {
-            this.towerController = towerController;
+            this.onDespawn = onDespawn;
+        }
+
+        public void Initialize(Vector2 direction, float damage, float lifetime)
+        {
+            this.damage = damage;
 
             if (direction.sqrMagnitude > 0f)
             {
                 moveDirection = direction.normalized;
                 transform.up = moveDirection;
             }
+
+            if (lifeRoutine != null)
+            {
+                StopCoroutine(lifeRoutine);
+            }
+
+            lifeRoutine = StartCoroutine(LifeTimer(lifetime));
         }
 
         private void FixedUpdate()
@@ -42,10 +57,38 @@ namespace STR.Bullet
         {
             if (collision.TryGetComponent<EnemyView>(out var enemy))
             {
-                enemy.Controller.TakeDamage(towerController.TowerData.damage);
+                enemy.Controller.TakeDamage(damage);
 
-                Destroy(gameObject);
+                Despawn();
             }
+        }
+
+        private IEnumerator LifeTimer(float lifetime)
+        {
+            yield return new WaitForSeconds(lifetime);
+            Despawn();
+        }
+
+        private void Despawn()
+        {
+            if (!gameObject.activeSelf)
+            {
+                return;
+            }
+
+            if (lifeRoutine != null)
+            {
+                StopCoroutine(lifeRoutine);
+                lifeRoutine = null;
+            }
+
+            if (bulletRigidBody != null)
+            {
+                bulletRigidBody.linearVelocity = Vector2.zero;
+            }
+
+            gameObject.SetActive(false);
+            onDespawn?.Invoke(this);
         }
     }
 }
